@@ -1,0 +1,43 @@
+{
+  "name": "did-method-bidkeets",
+  "private": true,
+  "version": "1.0.0",
+  "description": "TypeScript prototype for Bidkee DID method v1.6",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "echo Cleaning dist... && node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && echo Compiling TypeScript... && tsc -b tsconfig.node.json || exit 1 && tsc -b tsconfig.app.json || exit 1 && echo Building Vite... && vite build || exit 1",
+    "build:server": "echo Compiling server... && tsc -b tsconfig.node.json && echo Checking dist/server.js and dist/logger.js... && if exist dist\\server.js (echo dist/server.js exists) else (echo Error: dist/server.js not found && exit 1) && if exist dist\\logger.js (echo dist/logger.js exists) else (echo Error: dist/logger.js not found && exit 1)",
+    "prebuild": "npm cache clean --force && rd /s /q node_modules 2>nul & del /q package-lock.json 2>nul && npm install",
+    "postbuild": "echo Checking dist/server.js... && if exist dist\\server.js (echo dist/server.js generated successfully) else (echo Error: dist/server.js not found && exit 1) && echo Checking dist/logger.js... && if exist dist\\logger.js (echo dist/logger.js generated successfully) else (echo Error: dist/logger.js not found && exit 1)",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "start:server": "node dist/server.js",
+    "start:cli": "node dist/demo.js",
+    "postinstall": "npm cache clean --force"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "cors": "^2.8.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "winston": "^3.15.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.8.6",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "4.3.4",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.26.1",
+    "vite": "^6.3.1"
+  },
+  "license": "MIT"
+}

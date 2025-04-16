@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "did-method-bidkeejs", "did-method-bidkeeJS\did-method-bidkeejs.esproj", "{5209CE09-B39F-1C41-4B7C-0D806F67F350}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "did-method-bidkeets", "did-method-bidkeeTs\did-method-bidkeets.esproj", "{9D9ACF16-9BFE-8318-C2D9-1B51207E04D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,12 @@ Global
 		{5209CE09-B39F-1C41-4B7C-0D806F67F350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5209CE09-B39F-1C41-4B7C-0D806F67F350}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5209CE09-B39F-1C41-4B7C-0D806F67F350}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9D9ACF16-9BFE-8318-C2D9-1B51207E04D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9ACF16-9BFE-8318-C2D9-1B51207E04D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9ACF16-9BFE-8318-C2D9-1B51207E04D4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9D9ACF16-9BFE-8318-C2D9-1B51207E04D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9ACF16-9BFE-8318-C2D9-1B51207E04D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D9ACF16-9BFE-8318-C2D9-1B51207E04D4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
