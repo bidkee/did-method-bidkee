@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Bidkee DID Method Prototype (Updated)
 
 This repository hosts the prototype implementation of the *Bidkee Enhanced Proposal v1.6*, submitted to the W3C DID Community Group ([archive link placeholder]). It demonstrates the dual-signature mechanism for holder possession proof in identity card scenarios, supporting multiple blockchains (Kaspa and Bitcoin).
@@ -11,7 +12,25 @@ This repository hosts the prototype implementation of the *Bidkee Enhanced Propo
 - **Multi-Chain Support**: Kaspa (Ed25519) and Bitcoin (Secp256k1).
 - **Identity Structure**: Uses `firstBlockchainAddress`, `equipmentID`, `checkCode`.
 - **Use Case**: Verifies "legitimate issuance + holder possession" for identity cards.
-- **Frontend**: Vite-based interface for demo.
+- **Frontend**: Vite-based interface for demo. 
+=======
+<<<<<<< HEAD
+# Bidkee DID Method Prototype
+
+This repository provides a prototype implementation of the *Bidkee Enhanced Proposal v1.6* DID method, submitted to the W3C DID Community Group ([archive link placeholder]). It demonstrates the dual-signature mechanism for holder possession proof, particularly for identity card scenarios, using Kaspa’s cryptographic library. The code supports generating and verifying `checkCode`, `superordinateSignature`, and `signatureMessage` as described in the proposal.
+
+## Overview
+The Bidkee DID method introduces:
+- **Dual Signatures**: Separates issuer authorization (`superordinateSignature`) and holder responsibility (`signatureMessage`).
+- **Blockchain Agnosticism**: Compatible with chains like Kaspa, Polygon, etc.
+- **Identity Structure**: Includes `firstBlockchainAddress`, `equipmentID`, and `dynamicData` for scenarios like identity cards.
+- **Use Case**: Proves "legitimate issuance + holder possession" (e.g., government-issued IDs).
+
+This prototype focuses on:
+- Generating `checkCode` (SHA-256 hash of static fields).
+- Creating and verifying `superordinateSignature` (issuer) and `signatureMessage` (holder).
+- Supporting Kaspa-based Ed25519 signatures, extensible to other chains.
+>>>>>>> a4abf43f61f6d841ee05c319c769b10fa16f15f5
 
 ## Installation
 1. Clone the repository:
@@ -483,5 +502,25 @@ Permission is hereby granted, free of charge, to any person obtaining a copy...
 4. Open a PR.
 
 ## Contact
+<<<<<<< HEAD
 - W3C: `public-credentials@w3.org`
 - Issues: [GitHub Issues](https://github.com/bidkee/did-method-bidkee/issues)
+=======
+For feedback or collaboration:
+- W3C DID CG: `public-credentials@w3.org`
+- GitHub Issues: [Create an issue](https://github.com/bidkee/did-method-bidkee/issues)
+=======
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+>>>>>>> 42fe52b1d3a58818109d91e86ea035c5eaf002c5
+>>>>>>> a4abf43f61f6d841ee05c319c769b10fa16f15f5
