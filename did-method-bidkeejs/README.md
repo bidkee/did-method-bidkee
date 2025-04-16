@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Bidkee DID Method Prototype (Updated)
 
 This repository hosts the prototype implementation of the *Bidkee Enhanced Proposal v1.6*, submitted to the W3C DID Community Group ([archive link placeholder]). It demonstrates the dual-signature mechanism for holder possession proof in identity card scenarios, supporting multiple blockchains (Kaspa and Bitcoin).
@@ -19,6 +20,29 @@ This repository hosts the prototype implementation of the *Bidkee Enhanced Propo
 
 This repository provides a prototype implementation of the *Bidkee Enhanced Proposal v1.6* DID method, submitted to the W3C DID Community Group ([archive link placeholder]). It demonstrates the dual-signature mechanism for holder possession proof, particularly for identity card scenarios, using Kaspa’s cryptographic library. The code supports generating and verifying `checkCode`, `superordinateSignature`, and `signatureMessage` as described in the proposal.
  
+=======
+<<<<<<< HEAD
+# Bidkee DID Method Prototype (Updated)
+
+This repository hosts the prototype implementation of the *Bidkee Enhanced Proposal v1.6*, submitted to the W3C DID Community Group ([archive link placeholder]). It demonstrates the dual-signature mechanism for holder possession proof in identity card scenarios, supporting multiple blockchains (Kaspa and Bitcoin).
+
+## Structure
+- **`did-method-bidkeejs/`**: JavaScript sub-project with Kaspa and Bitcoin signature examples.
+- **Future Sub-projects**: Planned for other languages (e.g., Python, Rust) as needed.
+
+## Features
+- **Dual Signatures**: Implements `superordinateSignature` (issuer) and `signatureMessage` (holder).
+- **Multi-Chain Support**: Kaspa (Ed25519) and Bitcoin (Secp256k1).
+- **Identity Structure**: Uses `firstBlockchainAddress`, `equipmentID`, `checkCode`.
+- **Use Case**: Verifies "legitimate issuance + holder possession" for identity cards.
+- **Frontend**: Vite-based interface for demo. 
+=======
+<<<<<<< HEAD
+# Bidkee DID Method Prototype
+
+This repository provides a prototype implementation of the *Bidkee Enhanced Proposal v1.6* DID method, submitted to the W3C DID Community Group ([archive link placeholder]). It demonstrates the dual-signature mechanism for holder possession proof, particularly for identity card scenarios, using Kaspa’s cryptographic library. The code supports generating and verifying `checkCode`, `superordinateSignature`, and `signatureMessage` as described in the proposal.
+
+>>>>>>> 2d48cfd5e914983a566a5df1296eee8897ab5426
 ## Overview
 The Bidkee DID method introduces:
 - **Dual Signatures**: Separates issuer authorization (`superordinateSignature`) and holder responsibility (`signatureMessage`).
@@ -509,3 +533,5 @@ Permission is hereby granted, free of charge, to any person obtaining a copy...
 For feedback or collaboration:
 - W3C DID CG: `public-credentials@w3.org`
 - GitHub Issues: [Create an issue](https://github.com/bidkee/did-method-bidkee/issues)
+<<<<<<< HEAD
+
