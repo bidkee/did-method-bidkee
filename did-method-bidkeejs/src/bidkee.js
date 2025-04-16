@@ -1,7 +1,8 @@
-// src/bidkee.js
 
-const { signMessage, verifyMessage } = require('./kaspa-config');
-const crypto = require('crypto');
+// did-method-bidkeejs/src/bidkee.js
+import { signMessage as signKaspa, verifyMessage as verifyKaspa } from './kaspa-config';
+import { signMessage as signBtc, verifyMessage as verifyBtc } from './btc-config';
+import { createHash } from 'crypto';
 
 /**
  * Generates checkCode by hashing firstBlockchainAddress and equipmentID.
@@ -9,26 +10,28 @@ const crypto = require('crypto');
  * @param {string} equipmentID - Unique identifier (e.g., ID-20250407-CN12345678).
  * @returns {string} SHA-256 hash (hex).
  */
-function generateCheckCode(firstBlockchainAddress, equipmentID) {
+export function generateCheckCode(firstBlockchainAddress, equipmentID) {
   if (!firstBlockchainAddress || !equipmentID) {
     throw new Error('Missing required fields: firstBlockchainAddress or equipmentID');
   }
-  const data = `${firstBlockchainAddress}${equipmentID}`;
-  return crypto.createHash('sha256').update(data).digest('hex');
+  return createHash('sha256').update(`${firstBlockchainAddress}${equipmentID}`).digest('hex');
 }
 
 /**
  * Generates superordinateSignature (issuer authorization).
- * @param {string} checkCode - SHA-256 hash from generateCheckCode.
- * @param {Object} privateKey - Kaspa PrivateKey instance.
+ * @param {string} checkCode - SHA-256 hash.
+ * @param {Object} privateKey - Private key instance (Kaspa or BTC).
+ * @param {string} chain - Blockchain type ('kaspa' or 'btc').
  * @returns {Promise<string>} Signature (hex).
  */
-async function signSuperordinate(checkCode, privateKey) {
+export async function signSuperordinate(checkCode, privateKey, chain = 'kaspa') {
   if (!checkCode || !privateKey) {
     throw new Error('Missing checkCode or privateKey');
   }
   try {
-    return await signMessage({ message: checkCode, privateKey });
+    return chain === 'kaspa'
+      ? await signKaspa({ message: checkCode, privateKey })
+      : await signBtc({ message: checkCode, privateKey });
   } catch (error) {
     throw new Error(`Superordinate signing failed: ${error.message}`);
   }
@@ -36,48 +39,54 @@ async function signSuperordinate(checkCode, privateKey) {
 
 /**
  * Generates signatureMessage (holder responsibility).
- * @param {string} checkCode - SHA-256 hash from generateCheckCode.
- * @param {Object} privateKey - Kaspa PrivateKey instance.
+ * @param {string} checkCode - SHA-256 hash.
+ * @param {Object} privateKey - Private key instance.
+ * @param {string} chain - Blockchain type ('kaspa' or 'btc').
  * @returns {Promise<string>} Signature (hex).
  */
-async function signHolder(checkCode, privateKey) {
+export async function signHolder(checkCode, privateKey, chain = 'kaspa') {
   if (!checkCode || !privateKey) {
     throw new Error('Missing checkCode or privateKey');
   }
   try {
-    return await signMessage({ message: checkCode, privateKey });
+    return chain === 'kaspa'
+      ? await signKaspa({ message: checkCode, privateKey })
+      : await signBtc({ message: checkCode, privateKey });
   } catch (error) {
     throw new Error(`Holder signing failed: ${error.message}`);
   }
 }
 
 /**
- * Verifies both superordinateSignature and signatureMessage.
+ * Verifies both signatures.
  * @param {Object} params - Verification parameters.
  * @param {string} params.checkCode - SHA-256 hash.
  * @param {string} params.superordinateSignature - Issuer signature.
  * @param {Object} params.superordinatePublicKey - Issuer public key.
  * @param {string} params.holderSignature - Holder signature.
  * @param {Object} params.holderPublicKey - Holder public key.
- * @returns {Promise<boolean>} True if both signatures are valid.
+ * @param {string} params.chain - Blockchain type ('kaspa' or 'btc').
+ * @returns {Promise<boolean>} True if both valid.
  */
-async function verifySignatures({
+export async function verifySignatures({
   checkCode,
   superordinateSignature,
   superordinatePublicKey,
   holderSignature,
   holderPublicKey,
+  chain = 'kaspa',
 }) {
   if (!checkCode || !superordinateSignature || !superordinatePublicKey || !holderSignature || !holderPublicKey) {
     throw new Error('Missing verification parameters');
   }
   try {
-    const superValid = await verifyMessage({
+    const verify = chain === 'kaspa' ? verifyKaspa : verifyBtc;
+    const superValid = await verify({
       message: checkCode,
       signature: superordinateSignature,
       publicKey: superordinatePublicKey,
     });
-    const holderValid = await verifyMessage({
+    const holderValid = await verify({
       message: checkCode,
       signature: holderSignature,
       publicKey: holderPublicKey,
@@ -89,19 +98,13 @@ async function verifySignatures({
 }
 
 /**
- * Generates a Bidkee DID (informational, for reference).
- * @param {string} blockchainPrefix - Blockchain type (e.g., 'kaspa').
- * @param {string} specificIdentifier - Unique identifier (e.g., checkCode).
+ * Generates a Bidkee DID.
+ * @param {string} blockchainPrefix - Chain type (e.g., 'kaspa', 'btc').
+ * @param {string} specificIdentifier - Unique identifier.
  * @returns {string} DID string.
  */
-function generateDid(blockchainPrefix, specificIdentifier) {
+export function generateDid(blockchainPrefix, specificIdentifier) {
   return `did:bidkee:${blockchainPrefix}:${specificIdentifier}`;
 }
 
-module.exports = {
-  generateCheckCode,
-  signSuperordinate,
-  signHolder,
-  verifySignatures,
-  generateDid,
-};
+
