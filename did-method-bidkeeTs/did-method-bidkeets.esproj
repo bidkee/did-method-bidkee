@@ -14,4 +14,8 @@
     <TypeScriptConfiguration Remove="src\client\**" />
     <TypeScriptConfiguration Remove="src\server\**" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\test-kaspa.js" />
+    <None Remove="src\test-kaspa.ts" />
+  </ItemGroup>
 </Project>

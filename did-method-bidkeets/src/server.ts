@@ -9,7 +9,7 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/demo', (req, res) => {
+app.get('/api/demo', async (req, res) => {
     logger.info('Received /api/demo request', { query: req.query });
     try {
         const did = req.query.did as string | undefined;
@@ -21,7 +21,7 @@ app.get('/api/demo', (req, res) => {
         logger.info('Sending response', { result });
         res.json(result);
     } catch (error: any) {
-        logger.error('Error in /api/demo', { error: error.message });
+        logger.error('Error in /api/demo', { error: error.message, stack: error.stack });
         res.status(500).json({ error: error.message });
     }
 });

@@ -19,7 +19,8 @@ function App() {
         fetch(url)
             .then(async (response) => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    const text = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}, Message: ${text}`);
                 }
                 const text = await response.text();
                 try {
@@ -56,6 +57,10 @@ function App() {
         return 'BID verification failed';
     };
 
+    const truncateSignature = (sig: string) => {
+        return sig.length > 20 ? `${sig.slice(0, 10)}...${sig.slice(-10)}` : sig;
+    };
+
     return (
         <div className="App">
             <h1>Bidkee DID Demo</h1>
@@ -64,7 +69,7 @@ function App() {
                     type="text"
                     value={didInput}
                     onChange={(e) => setDidInput(e.target.value)}
-                    placeholder="Enter DID (e.g., kaspa:qrk9...)"
+                    placeholder="Enter DID (e.g., kaspa:qpamkvh...)"
                 />
                 <button onClick={handleVerify} disabled={loading}>
                     {loading ? 'Loading...' : 'Verify BID'}
@@ -77,8 +82,8 @@ function App() {
                     <p><strong>DID:</strong> {data.bid.did}</p>
                     <p><strong>Valid:</strong> {data.isValid ? 'Yes' : 'No'}</p>
                     <p><strong>Validation Message:</strong> {getValidationMessage(data.bid, data.isValid)}</p>
-                    <p><strong>Issuer Signature:</strong> {data.bid.signatures.issuer}</p>
-                    <p><strong>Holder Signature:</strong> {data.bid.signatures.holder}</p>
+                    <p><strong>Issuer Signature:</strong> {truncateSignature(data.bid.signatures.issuer)}</p>
+                    <p><strong>Holder Signature:</strong> {truncateSignature(data.bid.signatures.holder)}</p>
                 </div>
             )}
         </div>
